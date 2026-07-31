@@ -1,0 +1,10 @@
+# Revisions to skip in `git blame` - bulk mechanical reformatting only.
+#
+# Enable locally with:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+#
+# GitHub honours this file automatically in its blame view.
+
+# Normalize trailing newlines across tracked text files (whitespace-only;
+# every file verified byte-identical except the appended final newline).
+a3d66ecd6801178bef00bd64ad524c3bab2c30b9
