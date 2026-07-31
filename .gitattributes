@@ -1,0 +1,65 @@
+# Line-ending policy.
+#
+# This project is developed on Windows (see the PowerShell harvester commands in
+# README.md) but the 2500+ scraped monster pages are stored with LF. Without an
+# explicit policy a Windows checkout can commit CRLF and turn a one-word
+# copyedit into a whole-file diff. Pin text to LF in the repository.
+#
+# Verified safe at the time this was added: zero tracked text files contained
+# CRLF, so this introduces no renormalization.
+
+* text=auto eol=lf
+
+# --- Explicit text ----------------------------------------------------------
+*.html   text eol=lf
+*.css    text eol=lf
+*.js     text eol=lf
+*.jsx    text eol=lf
+*.ts     text eol=lf
+*.tsx    text eol=lf
+*.json   text eol=lf
+*.md     text eol=lf
+*.MD     text eol=lf
+*.txt    text eol=lf
+*.csv    text eol=lf
+*.tsv    text eol=lf
+*.svg    text eol=lf
+*.cpp    text eol=lf
+*.h      text eol=lf
+*.R      text eol=lf
+*.Rmd    text eol=lf
+*.sh     text eol=lf
+Dockerfile text eol=lf
+
+# --- Binary: never normalize, never diff as text ----------------------------
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.webp   binary
+*.ico    binary
+*.pdf    binary
+*.ods    binary
+*.xlsx   binary
+*.woff   binary
+*.woff2  binary
+*.ttf    binary
+*.eot    binary
+*.RData  binary
+*.Rhistory binary
+
+# --- Large generated data: collapse in PR diffs ------------------------------
+# Still tracked and still diffable with `git diff --text`, just not expanded by
+# default in review, where a regenerated catalogue is thousands of unread lines.
+harvester/output/*.json   linguist-generated=true
+src/data/ALL_MONSTERS.json        linguist-generated=true
+src/data/Full_Catalog.json        linguist-generated=true
+src/data/AA_KEYS_TITLES.json      linguist-generated=true
+src/data/catalog_map.json         linguist-generated=true
+src/data/publishId_to_acronym.json linguist-generated=true
+src/data/statistics.json          linguist-generated=true
+data/Titles_Keys_combined.json    linguist-generated=true
+data/all_tsr_settings.json        linguist-generated=true
+
+# The scraped corpus is data, not source - keep it out of language stats.
+harvester/cmm/**  linguist-vendored=true

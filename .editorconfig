@@ -1,0 +1,54 @@
+# EditorConfig - https://editorconfig.org
+#
+# Every tracked text file ends with a newline. Without this, editors that add
+# (or strip) a final newline on save produced a stray
+#   -</html>
+#   \ No newline at end of file
+#   +</html>
+# hunk in otherwise unrelated commits - see the typo-fix commits before this
+# file existed, where a two-word spelling change carried a second bogus hunk.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+# The scraped monster pages are hand-maintained HTML with deliberate leading
+# indentation. Enforce only the final newline; never reflow or strip anything
+# else, or a copyedit turns into a whole-file diff.
+[harvester/cmm/**.html]
+trim_trailing_whitespace = false
+indent_style = space
+indent_size = 1
+
+[*.{ts,tsx,js,jsx}]
+indent_style = space
+indent_size = 2
+
+[*.{css,json}]
+indent_style = space
+indent_size = 2
+
+[*.{c,cpp,h,hpp}]
+indent_style = space
+indent_size = 4
+
+[Makefile]
+indent_style = tab
+
+# --- Generated output -------------------------------------------------------
+# Written by the C++ harvester, scripts/copy_monster_data.js, gatsby-node.js
+# and tabulate_monster_stats.R. Those writers emit no final newline, so leaving
+# insert_final_newline on here would make every regeneration show up as a diff.
+# Do not hand-edit these files; regenerate them instead.
+[{harvester/output/**,books_df.csv,data/Titles_Keys_combined.json,data/all_tsr_settings.json}]
+insert_final_newline = false
+
+[src/data/{ALL_MONSTERS,Full_Catalog,AA_KEYS_TITLES,catalog_map,publishId_to_acronym,statistics}.json]
+insert_final_newline = false
+
+# GitHub Pages custom domain - left exactly as deployed.
+[CNAME]
+insert_final_newline = false
